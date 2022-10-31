@@ -6,7 +6,6 @@ import com.app.post.entities.User;
 import com.app.post.repos.LikeRepository;
 import com.app.post.requests.LikeCreateRequest;
 import com.app.post.responses.LikeResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class LikeService {
 
-    private  LikeRepository likeRepository;
-    private  UserService userService;
-    private  PostService postService;
+    private final LikeRepository likeRepository;
+    private final   UserService userService;
+    private  final  PostService postService;
 
 
 
@@ -36,9 +35,7 @@ public class LikeService {
             list = likeRepository.findByPostId(postId.get());
         } else
             list = likeRepository.findAll();
-        return list.stream().map(lik -> new LikeResponse(lik)).collect(Collectors.toList());
-
-
+        return list.stream().map(LikeResponse::new).collect(Collectors.toList());
     }
 
     public Likes getOneLikeById(Long likeId) {

@@ -3,6 +3,7 @@ package com.app.post.controllers;
 import com.app.post.entities.User;
 import com.app.post.repos.UserRepository;
 import com.app.post.requests.UserUpdateRequest;
+import com.app.post.responses.UserResponse;
 import com.app.post.servicies.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,11 +30,21 @@ public class UserController {
         return userService.updateOneUser(userId,newUser);
     }
     @GetMapping("/{userId}")
-    public User getOneUserByUserId(@PathVariable Long userId){
-        return userService.getOneUserByUserId(userId);
+    public UserResponse getOneUserById(@PathVariable Long userId){
+        return new UserResponse(userService.getOneUserByUserId(userId));
     }
     @DeleteMapping("/{userId}")
     public void deleteOneUserByUserId(@PathVariable Long userId){
          userService.deleteOneUserByUserId(userId);
     }
+    @GetMapping("/activity/{userId}")
+    public List<Object> getUserActivity(@PathVariable Long userId){
+       return userService.getUserActivity(userId);
+    }
+
+
+
+
 }
+
+

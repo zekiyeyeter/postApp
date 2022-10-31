@@ -6,12 +6,15 @@ import com.app.post.entities.User;
 import com.app.post.repos.CommentRepository;
 import com.app.post.requests.CommentCreateRequest;
 import com.app.post.requests.CommentUpdateRequest;
+import com.app.post.responses.CommentResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,18 +32,18 @@ public class CommentService {
         this.postService = postService;
     }
 
-    public List<Comment> getAllCommentsWithParam(@RequestParam  Optional<Long> userId, @RequestParam Optional<Long> postId) {
-      //  List<Comment> comments;
-        if(userId.isPresent() && postId.isPresent()) {
-           return commentRepository.findByUserIdAndPostId(userId.get(), postId.get());
-        }else if(userId.isPresent()) {
-            return commentRepository.findByUserId(userId.get());
-        }else if(postId.isPresent()) {
-            return  commentRepository.findByPostId(postId.get());
-        }else
-            return  commentRepository.findAll();
+    public List<CommentResponse> getAllCommentsWithParam(@RequestParam  Optional<Long> userId, @RequestParam Optional<Long> postId) {
+        List<Comment> comments;
+        if (userId.isPresent() && postId.isPresent()) {
+            comments = commentRepository.findByUserIdAndPostId(userId.get(), postId.get());
+        } else if (userId.isPresent()) {
+            comments = commentRepository.findByUserId(userId.get());
+        } else if (postId.isPresent()) {
+            comments = commentRepository.findByPostId(postId.get());
+        } else
+            comments = commentRepository.findAll();
 
-                //comments.stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList());
+      return comments.stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList());
     }
 
     public Comment getOneCommentById(Long commentId) {
@@ -56,6 +59,7 @@ public class CommentService {
             commentToSave.setPost(post);
             commentToSave.setUser(user);
             commentToSave.setText(request.getText());
+            commentToSave.setCreateDate(new Date());
             return commentRepository.save(commentToSave);
         }else
             return null;

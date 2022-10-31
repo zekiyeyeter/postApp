@@ -3,6 +3,7 @@ package com.app.post.controllers;
 import com.app.post.entities.Comment;
 import com.app.post.requests.CommentCreateRequest;
 import com.app.post.requests.CommentUpdateRequest;
+import com.app.post.responses.CommentResponse;
 import com.app.post.servicies.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +13,14 @@ import java.util.Optional;
 @RequestMapping("/comments")
 public class CommentController {
 
-    private CommentService commentService;
+    private final CommentService commentService;
 
  public CommentController(CommentService commentService){
      this.commentService=commentService;
  }
     @GetMapping
-    public List<Comment> getAllComments(@RequestParam Optional<Long> userId,
-                                        @RequestParam Optional<Long> postId) {
+    public List<CommentResponse> getAllComments(@RequestParam Optional<Long> userId,
+                                                @RequestParam Optional<Long> postId) {
         return commentService.getAllCommentsWithParam(userId, postId);
     }
 

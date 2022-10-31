@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,16 +22,19 @@ public class PostService {
    private final UserService userService;
     private final PostRepository postRepository;
 
+
     public List<Post> getAllPosts(Optional<Long> userId) {
 
-        if (userId.isPresent()) {
 
+        if (userId.isPresent()) {
              return postRepository.findByUserId(userId.get());
         } else
 
-           return postRepository.findAll();
+          return postRepository.findAll();
+          }
 
-    }
+
+
  /*   public List<PostResponse> getAllPosts(Optional<Long> userId) {
         List<Post> postList;
 
@@ -49,6 +53,7 @@ public class PostService {
     }
     public PostResponse getOnePostByIdWithLikes(Long postId) {
         Post post = postRepository.findById(postId).orElse(null);
+
         return new PostResponse(post, post.getLikes());
     }
 
@@ -61,6 +66,7 @@ public class PostService {
         toSave.setText(newPostRequest.getText());
         toSave.setTitle(newPostRequest.getTitle());
         toSave.setUser(user);
+        toSave.setCreateDate(new Date());
         return postRepository.save(toSave);
     }
 

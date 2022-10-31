@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -29,7 +30,8 @@ public class Comment {
     User user;
 
     @Lob
-    String Comment;
     @Column(columnDefinition = "text")
     String text;
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createDate;
 }

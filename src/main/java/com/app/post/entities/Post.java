@@ -34,7 +34,7 @@ public class Post {
 
    @OneToMany(mappedBy = "post")
   private List<Likes> likes;
-//
-//    @Column(name = "create_date")
-//    private Date createDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createDate;
 }
