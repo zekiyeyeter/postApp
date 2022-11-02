@@ -43,7 +43,7 @@ public class CommentService {
         } else
             comments = commentRepository.findAll();
 
-      return comments.stream().map(comment -> new CommentResponse(comment)).collect(Collectors.toList());
+      return comments.stream().map(CommentResponse::new).collect(Collectors.toList());
     }
 
     public Comment getOneCommentById(Long commentId) {
