@@ -27,11 +27,11 @@ import java.util.UUID;
 @RequestMapping("/auth/*")
 public class AuthController {
 
-    private  AuthenticationManager authenticationManager;
-    private  JwtTokenProvider jwtTokenProvider;
-    private  UserService userService;
-    private  PasswordEncoder passwordEncoder;
-    private  RefreshTokenService refreshTokenService;
+    private final AuthenticationManager authenticationManager;
+    private  final JwtTokenProvider jwtTokenProvider;
+    private  final UserService userService;
+    private  final PasswordEncoder passwordEncoder;
+    private  final RefreshTokenService refreshTokenService;
 
     public AuthController(RefreshTokenService refreshTokenService,AuthenticationManager authenticationManager,JwtTokenProvider jwtTokenProvider, UserService userService, PasswordEncoder passwordEncoder){
         this.passwordEncoder=passwordEncoder;

@@ -24,7 +24,13 @@ public class PostService {
 
 
     public List<Post> getAllPosts(Optional<Long> userId) {
-
+        /*
+        *
+        *
+        *  list
+        *
+        *
+        */
 
         if (userId.isPresent()) {
              return postRepository.findByUserId(userId.get());
@@ -53,7 +59,6 @@ public class PostService {
     }
     public PostResponse getOnePostByIdWithLikes(Long postId) {
         Post post = postRepository.findById(postId).orElse(null);
-
         return new PostResponse(post, post.getLikes());
     }
 

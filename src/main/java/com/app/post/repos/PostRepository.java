@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
     List<Post> findByUserId(Long userId);
+
     @Query(value = "select id from post where user_id = :userId order by create_date desc limit 5",
             nativeQuery = true)
     List<Long> findTopByUserId(@Param("userId") Long userId);

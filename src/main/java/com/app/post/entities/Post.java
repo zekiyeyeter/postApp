@@ -1,9 +1,7 @@
 package com.app.post.entities;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
